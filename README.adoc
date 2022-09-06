@@ -1,0 +1,22 @@
+## Spring Pulsar Basic Demo
+
+### Components.
+
+1. Basic producer using `PulsarTemplate`
+2. Basic consumer using `PulsarListener`.
+
+### Building and Running the application
+
+Check out this repository.
+
+#### Building
+
+`./mvnw clean package`
+
+#### Running
+
+Make sure that you have Pulsar running locally (`localhost:6650`).
+
+Then simply run the main application.
+
+Or `java -jar spring-pulsar-demo-0.0.1-SNAPSHOT.jar`
