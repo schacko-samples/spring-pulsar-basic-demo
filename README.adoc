@@ -11,7 +11,7 @@ Check out this repository.
 
 #### Building
 
-`./mvnw clean package`
+`./mvnw clean package -DskipTests`
 
 #### Running
 
