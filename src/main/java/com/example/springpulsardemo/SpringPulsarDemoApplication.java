@@ -1,10 +1,13 @@
 package com.example.springpulsardemo;
 
+import org.apache.pulsar.client.api.Schema;
+import org.apache.pulsar.common.schema.SchemaType;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.pulsar.annotation.PulsarListener;
+import org.springframework.pulsar.core.PulsarProducerFactory;
 import org.springframework.pulsar.core.PulsarTemplate;
 
 @SpringBootApplication
@@ -15,20 +18,20 @@ public class SpringPulsarDemoApplication {
 	}
 
 	@Bean
-	ApplicationRunner runner1(PulsarTemplate<String> pulsarTemplate) {
+	ApplicationRunner runner1(
+			PulsarTemplate<Foo> pulsarTemplate ) {
 
-		String topic1 = "spring-pulsar-simple-demo";
-
+		String topic1 = "spring-pulsar-foo-demo-3";
+		pulsarTemplate.setSchema(Schema.JSON(Foo.class));
 		return args -> {
 			for (int i = 0; i < 100; i++) {
-				pulsarTemplate.send(topic1, "This is message " + (i + 1));
-				Thread.sleep(100);
+				pulsarTemplate.sendAsync(topic1, new Foo("foo", "bar"));
 			}
 		};
 	}
 
-	@PulsarListener(subscriptionName = "spring-pulsar-simple-demo-subscription", topics = "spring-pulsar-simple-demo")
-	void process(String message) {
+	@PulsarListener(subscriptionName = "spring-pulsar-foo-demo-subscription-3", topics = "spring-pulsar-foo-demo-3", schemaType = SchemaType.JSON)
+	void process(Foo message) {
 		System.out.println("Message Received: " + message);
 	}
 
