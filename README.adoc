@@ -1,22 +1,35 @@
-## Spring Pulsar Basic Demo
+== Spring Pulsar Basic Demo
 
-### Components.
-
+=== Components.
 1. Basic producer using `PulsarTemplate`
-2. Basic consumer using `PulsarListener`.
+2. Basic consumer using `PulsarListener`
 
-### Building and Running the application
-
+=== Building and Running the application
 Check out this repository.
 
-#### Building
+==== Building
+----
+./mvnw clean package
+----
 
-`./mvnw clean package -DskipTests`
-
-#### Running
-
+==== Running
 Make sure that you have Pulsar running locally (`localhost:6650`).
 
-Then simply run the main application.
+Then simply run the main application from your IDE or from the command line with the following command:
+----
+./mvnw spring-boot:run`
+----
+TIP: The above command also results in `add-opens` being set on the JVM
 
-Or `java -jar spring-pulsar-demo-0.0.1-SNAPSHOT.jar`
+===== Timing Info
+You can see the overall duration and send rate for the producer by setting the `timing.enabled` property to `true` in the `application.yml` prior to running the samples.
+
+=== Vanilla Pulsar Demo
+There is also a demo application with feature parity that uses regular Pulsar rather than Spring Pulsar. This is helpful to show the simplification that Spring Pulsar brings as well as compare / contrast the application run's timings and behavior.
+
+To execute the Vanilla Pulsar demo simply run the application from your IDE or from the command line with the following command:
+
+----
+./mvnw spring-boot:run -Dstart.class="com.example.demo.vanillapulsar.VanillaPulsarDemoApplication"
+----
+TIP: The above command also results in `add-opens` being set on the JVM
