@@ -1,0 +1,4 @@
+logging.level:
+  org.springframework.pulsar: "info"
+
+timing.enabled: false
